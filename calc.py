@@ -3,14 +3,14 @@
 import tkinter as tk
 
 CLR = 0
-NOP = 1
-ADD = 2
+DIV = 1
+MUL = 2
 SUB = 3
-MUL = 4
-DIV = 5
+ADD = 4
+NOP = 5
 
-cmdvalue = [CLR, NOP, ADD, SUB, MUL, DIV]
-cmdlist = ["AC", "=", "+", "-", "*", "/"]
+cmdvalue = [MUL, SUB, ADD]
+cmdlist = ["*", "-", "+"]
 
 class Calculator(tk.Tk):
     def __init__(self):
@@ -26,7 +26,7 @@ class Calculator(tk.Tk):
         self.display.grid(row=0, column=0, sticky='NEWS')
 
         digitframe = tk.Frame(self)
-        digitframe.grid(row=1, column=0, rowspan=4, columnspan=3)
+        digitframe.grid(row=1, column=0, rowspan=5, columnspan=4)
 
         for i in range(9):
             lab = tk.Label(digitframe, text = str(i+1),
@@ -40,37 +40,76 @@ class Calculator(tk.Tk):
             lab.value = i+1
             lab.bind('<ButtonPress-1>', self.digit)
             lab.bind('<ButtonRelease-1>', self.release)
-            lab.grid(row=i // 3, column = i % 3)
+            lab.grid(row=(i // 3) + 2, column = i % 3)
 
         lab = tk.Label(digitframe, text = '0',
                                    padx = 20,
                                    pady = 20,
                                    bg = '#c0c0c0',
                                    border = 4,
-                                   width = 3,
+                                   width = 6,
                                    relief = 'raised',
                                    font = ('Courier', 48))
         lab.value = 0
         lab.bind('<ButtonPress-1>', self.digit)
         lab.bind('<ButtonRelease-1>', self.release)
-        lab.grid(row=3, column=1)
+        lab.grid(row=5, column=0, columnspan=2)
 
-        commandframe = tk.Frame(self)
-        commandframe.grid(row=5, column=0, rowspan=2, columnspan=3)
+        #commandframe = tk.Frame(self)
+        #commandframe.grid(row=5, column=0, rowspan=2, columnspan=3)
 
-        for i in range(6):
-            lab = tk.Label(commandframe, text=cmdlist[i],
-                                         bg = 'lightblue',
-                                         fg = 'black',
-                                         padx = 20,
-                                         pady = 20,
-                                         width = 3,
-                                         border = 4,
-                                         relief = 'raised',
-                                         font = ('Courier', 48))
+        lab = tk.Label(digitframe, text = "AC",
+                                    bg = 'lightblue',
+                                    fg = 'black',
+                                    padx = 20,
+                                    pady = 20,
+                                    width = 3,
+                                    border = 4,
+                                    relief = 'raised',
+                                    font = ('Courier', 48))
+        lab.bind('<Button-1>', self.command)
+        lab.value = CLR
+        lab.grid(row = 1, column = 0)
+
+        lab = tk.Label(digitframe, text = "/",
+                                    bg = 'lightblue',
+                                    fg = 'black',
+                                    padx = 20,
+                                    pady = 20,
+                                    width = 3,
+                                    border = 4,
+                                    relief = 'raised',
+                                    font = ('Courier', 48))
+        lab.bind('<Button-1>', self.command)
+        lab.value = DIV
+        lab.grid(row = 1, column = 2)
+
+        for i in range(3):
+            lab = tk.Label(digitframe, text=cmdlist[i],
+                                        bg = 'lightblue',
+                                        fg = 'black',
+                                        padx = 20,
+                                        pady = 20,
+                                        width = 3,
+                                        border = 4,
+                                        relief = 'raised',
+                                        font = ('Courier', 48))
             lab.bind('<Button-1>', self.command)
             lab.value = cmdvalue[i]
-            lab.grid(row = i // 3, column = i % 3)
+            lab.grid(row = i+1, column = 3)
+
+        lab = tk.Label(digitframe, text = "=",
+                                    bg = 'lightblue',
+                                    fg = 'black',
+                                    padx = 20,
+                                    pady = 20,
+                                    width = 3,
+                                    border = 4,
+                                    relief = 'raised',
+                                    font = ('Courier', 48))
+        lab.bind('<Button-1>', self.command)
+        lab.value = NOP
+        lab.grid(row = 4, column = 3, rowspan=2)
     
     def doOperation(self, cmd):
         if self.pending == ADD:
