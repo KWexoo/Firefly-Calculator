@@ -2,6 +2,9 @@
 
 import tkinter as tk
 
+cellwidth = 2
+cellheight = 2
+
 CLR = 0
 DIV = 1
 MUL = 2
@@ -18,12 +21,12 @@ class Calculator(tk.Tk):
 
         self.reset()
         #self.display to create the display that the current number is written
-        self.display = tk.Label(self, height=2, width=20,
-                                      bg="darkred",
+        self.display = tk.Label(self, height=2, width=18,
+                                      bg="#43326E",
                                       fg="yellow",
                                       text="",
                                       font = ("Courier", 32))
-        self.display.grid(row=0, column=0, sticky='NEWS')
+        self.display.grid(row=0, column=0, columnspan=4, rowspan=1, sticky='NEWS')
 
         digitframe = tk.Frame(self)
         digitframe.grid(row=1, column=0, rowspan=5, columnspan=4)
@@ -34,7 +37,7 @@ class Calculator(tk.Tk):
                                        pady = 20,
                                        bg = '#c0c0c0',
                                        border = 4,
-                                       width = 3,
+                                       width = cellwidth,
                                        relief = 'raised',
                                        font = ('Courier', 48))
             lab.value = i+1
@@ -47,13 +50,13 @@ class Calculator(tk.Tk):
                                    pady = 20,
                                    bg = '#c0c0c0',
                                    border = 4,
-                                   width = 6,
+                                   width = cellwidth*2,
                                    relief = 'raised',
                                    font = ('Courier', 48))
         lab.value = 0
         lab.bind('<ButtonPress-1>', self.digit)
         lab.bind('<ButtonRelease-1>', self.release)
-        lab.grid(row=5, column=0, columnspan=2)
+        lab.grid(row=5, column=0, columnspan=2, sticky = 'news')
 
         #commandframe = tk.Frame(self)
         #commandframe.grid(row=5, column=0, rowspan=2, columnspan=3)
@@ -63,7 +66,7 @@ class Calculator(tk.Tk):
                                     fg = 'black',
                                     padx = 20,
                                     pady = 20,
-                                    width = 3,
+                                    width = cellwidth,
                                     border = 4,
                                     relief = 'raised',
                                     font = ('Courier', 48))
@@ -76,7 +79,7 @@ class Calculator(tk.Tk):
                                     fg = 'black',
                                     padx = 20,
                                     pady = 20,
-                                    width = 3,
+                                    width = cellwidth,
                                     border = 4,
                                     relief = 'raised',
                                     font = ('Courier', 48))
@@ -90,7 +93,7 @@ class Calculator(tk.Tk):
                                         fg = 'black',
                                         padx = 20,
                                         pady = 20,
-                                        width = 3,
+                                        width = cellwidth,
                                         border = 4,
                                         relief = 'raised',
                                         font = ('Courier', 48))
@@ -103,13 +106,13 @@ class Calculator(tk.Tk):
                                     fg = 'black',
                                     padx = 20,
                                     pady = 20,
-                                    width = 3,
+                                    width = cellwidth,
                                     border = 4,
                                     relief = 'raised',
                                     font = ('Courier', 48))
         lab.bind('<Button-1>', self.command)
         lab.value = NOP
-        lab.grid(row = 4, column = 3, rowspan=2)
+        lab.grid(row = 4, column = 3, rowspan=2, sticky='news')
     
     def doOperation(self, cmd):
         if self.pending == ADD:
