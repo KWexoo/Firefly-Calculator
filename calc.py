@@ -23,7 +23,7 @@ class Calculator(tk.Tk):
         #self.display to create the display that the current number is written
         self.display = tk.Label(self, height=2, width=18,
                                       bg="#43326E",
-                                      fg="yellow",
+                                      fg="#F4F7F5",
                                       text="",
                                       font = ("Courier", 32))
         self.display.grid(row=0, column=0, columnspan=4, rowspan=1, sticky='NEWS')
@@ -35,7 +35,8 @@ class Calculator(tk.Tk):
             lab = tk.Label(digitframe, text = str(i+1),
                                        padx = 20,
                                        pady = 20,
-                                       bg = '#c0c0c0',
+                                       bg = '#43326E',
+                                       fg = '#F4F7F5',
                                        border = 4,
                                        width = cellwidth,
                                        relief = 'raised',
@@ -48,7 +49,8 @@ class Calculator(tk.Tk):
         lab = tk.Label(digitframe, text = '0',
                                    padx = 20,
                                    pady = 20,
-                                   bg = '#c0c0c0',
+                                   bg = '#43326E',
+                                   fg = '#F4F7F5',
                                    border = 4,
                                    width = cellwidth*2,
                                    relief = 'raised',
@@ -62,8 +64,8 @@ class Calculator(tk.Tk):
         #commandframe.grid(row=5, column=0, rowspan=2, columnspan=3)
 
         lab = tk.Label(digitframe, text = "AC",
-                                    bg = 'lightblue',
-                                    fg = 'black',
+                                    bg = '#43326E',
+                                    fg = '#F4F7F5',
                                     padx = 20,
                                     pady = 20,
                                     width = cellwidth,
@@ -75,8 +77,8 @@ class Calculator(tk.Tk):
         lab.grid(row = 1, column = 0)
 
         lab = tk.Label(digitframe, text = "/",
-                                    bg = 'lightblue',
-                                    fg = 'black',
+                                    bg = '#FAD652',
+                                    fg = '#534069',
                                     padx = 20,
                                     pady = 20,
                                     width = cellwidth,
@@ -89,8 +91,8 @@ class Calculator(tk.Tk):
 
         for i in range(3):
             lab = tk.Label(digitframe, text=cmdlist[i],
-                                        bg = 'lightblue',
-                                        fg = 'black',
+                                        bg = '#FAD652',
+                                        fg = '#534069',
                                         padx = 20,
                                         pady = 20,
                                         width = cellwidth,
@@ -102,8 +104,8 @@ class Calculator(tk.Tk):
             lab.grid(row = i+1, column = 3)
 
         lab = tk.Label(digitframe, text = "=",
-                                    bg = 'lightblue',
-                                    fg = 'black',
+                                    bg = '#FAD652',
+                                    fg = '#534069',
                                     padx = 20,
                                     pady = 20,
                                     width = cellwidth,
