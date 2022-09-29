@@ -3,10 +3,9 @@
 # Todo:
 # Create decimals.
 # Create hamburger menu and figure out what to put on it.
-# Enlarge display
 
 import tkinter as tk
-from Components import RoundLabel, WideLabel, TallLabel, Bar
+from Components import RoundLabel, WideLabel, TallLabel, Bar, SIZE
 
 cellwidth = 2
 cellheight = 2
@@ -33,7 +32,7 @@ class Calculator(tk.Tk):
         tk.Tk.__init__(self)
 
         self.app = tk.Frame(self)
-        self.app.pack(padx=40, pady=40)
+        self.app.pack(padx=SIZE//3, pady=SIZE//3)
 
         self.configure(bg=PURPLE)
         self.reset()
@@ -46,10 +45,10 @@ class Calculator(tk.Tk):
                                       border=2,
                                       text="",
                                       anchor="s",
-                                      font = ("Courier", 64))
+                                      font = ("Courier", 32))
         self.display.grid(row=0, column=0, columnspan=4, rowspan=1, sticky="NEWS")
 
-        bar = Bar(self.app,bg=PURPLE,fg=WHITE,width=640)
+        bar = Bar(self.app,bg=PURPLE,fg=WHITE,width=4*SIZE)
         bar.grid(row=1, column=0, rowspan=1, columnspan=4, padx=0, pady=0)
 
 # The buttonframe holds the numbers and commands that can be issued to the calculator.
@@ -58,7 +57,7 @@ class Calculator(tk.Tk):
         buttonframe = tk.Frame(self.app,bg=PURPLE,bd=0,border=0,padx=0,pady=0)
         buttonframe.grid(row=BUTTONROW, column=0, rowspan=5, columnspan=4, padx=0, pady=0)
 
-        bar = Bar(self.app,bg=PURPLE,fg='#ffffff',width=160)
+        bar = Bar(self.app,bg=PURPLE,fg='#ffffff',width=SIZE)
         bar.grid(row=7, column=0, rowspan=1, columnspan=4, padx=0, pady=0)
 
         for i in range(9):
@@ -119,10 +118,10 @@ class Calculator(tk.Tk):
     def digit(self, event):
         self.current = 10*self.current + event.widget.value
         self.display.config(text=f"{self.current:12d}")
-        event.widget.config(bg=TMPPURPLE)
+        event.widget.flash(TMPPURPLE)
 
     def release(self, event):
-        event.widget.config(bg=PURPLE)
+        event.widget.flash(PURPLE)
 
     #Command is run when a command button is pressed.
     def command(self, event):
