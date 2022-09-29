@@ -19,7 +19,7 @@ ADD = 4
 NOP = 5
 
 cmdvalue = [MUL, SUB, ADD]
-cmdlist = ["*", "-", "+"]
+cmdlist = ["x", "-", "+"]
 
 PURPLE    = "#43326E"
 YELLOW    = "#FAD652"
@@ -80,7 +80,7 @@ class Calculator(tk.Tk):
         lab.value = CLR
         lab.grid(row = 1, column = 0, sticky="news", padx = 0, pady = 0)
 
-        lab = RoundLabel(buttonframe, text = "/", bg = PURPLE, fg = PURPLE, outline = YELLOW, fillcircle = YELLOW)
+        lab = RoundLabel(buttonframe, text = "÷", bg = PURPLE, fg = PURPLE, outline = YELLOW, fillcircle = YELLOW)
         lab.bind("<Button-1>", self.command)
         lab.value = DIV
         lab.grid(row = 1, column = 2, sticky="news", padx = 0, pady = 0)
