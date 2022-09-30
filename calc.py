@@ -5,6 +5,7 @@
 # Create hamburger menu and figure out what to put on it.
 
 import tkinter as tk
+from decimal import *
 from Components import RoundLabel, WideLabel, TallLabel, Bar, SIZE
 
 cellwidth = 2
@@ -24,6 +25,7 @@ PURPLE    = "#43326E"
 YELLOW    = "#FAD652"
 WHITE     = "#F4F7F5"
 TMPPURPLE = "#53427E"
+TMPYELLOW = "#FAE662"
 
 BUTTONROW = 2
 
@@ -74,24 +76,34 @@ class Calculator(tk.Tk):
         lab.bind("<ButtonRelease-1>", self.release)
         lab.grid(row=5, column=0, columnspan=2, sticky = "news", padx = 0, pady = 0)
 
+        lab = RoundLabel(buttonframe, text = ".", bg = PURPLE, fg = WHITE, outline = WHITE, fillcircle = PURPLE)
+        lab.bind("<Button-1>", self.command)
+        lab.bind("<ButtonRelease-1>", self.release)
+        lab.value = CLR
+        lab.grid(row=5, column=2, sticky = "news", padx = 0, pady = 0)
+
         lab = RoundLabel(buttonframe, text = "C", bg = PURPLE, fg = WHITE, outline = YELLOW, fillcircle = PURPLE)
         lab.bind("<Button-1>", self.command)
+        lab.bind("<ButtonRelease-1>", self.release)
         lab.value = CLR
         lab.grid(row = 1, column = 0, sticky="news", padx = 0, pady = 0)
 
         lab = RoundLabel(buttonframe, text = "÷", bg = PURPLE, fg = PURPLE, outline = YELLOW, fillcircle = YELLOW)
         lab.bind("<Button-1>", self.command)
+        lab.bind("<ButtonRelease-1>", self.release2)
         lab.value = DIV
         lab.grid(row = 1, column = 2, sticky="news", padx = 0, pady = 0)
 
         for i in range(3):
             lab = RoundLabel(buttonframe, text=cmdlist[i], bg = PURPLE, fg = PURPLE, outline = YELLOW, fillcircle = YELLOW)
             lab.bind("<Button-1>", self.command)
+            lab.bind("<ButtonRelease-1>", self.release2)
             lab.value = cmdvalue[i]
             lab.grid(row = i+1, column = 3, sticky="news", padx = 0, pady = 0)
 
         lab = TallLabel(buttonframe, text = "=", bg = PURPLE, fg = PURPLE, outline = YELLOW, fillcircle = YELLOW)
         lab.bind("<Button-1>", self.command)
+        lab.bind("<ButtonRelease-1>", self.release2)
         lab.value = NOP
         lab.grid(row = 4, column = 3, rowspan=2, sticky="news", padx = 0, pady = 0)
 
@@ -133,6 +145,10 @@ class Calculator(tk.Tk):
             self.doOperation(cmd)
             self.current = 0
             self.display.config(text=f"{self.total:12d}")
+        event.widget.flash(TMPYELLOW)
+    
+    def release2(self, event):
+        event.widget.flash(YELLOW)
 
 if __name__ == "__main__":
     calc = Calculator()

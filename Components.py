@@ -48,14 +48,19 @@ class TallLabel(tk.Canvas):
         tmp2 = 0.95 * width
         tmp3 = 0.05 * height // 2
         tmp4 = 0.95 * height // 2
-        self.create_oval(tmp1, tmp4, tmp2, tmp3, outline=outline, fill=fillcircle, width=3)
+        self.light1 = self.create_oval(tmp1, tmp4, tmp2, tmp3, outline=outline, fill=fillcircle, width=3)
         tmp5 = 0.05 * width
         tmp6 = 0.95 * width
         tmp7 = height //2 + 0.05 * height // 2
         tmp8 = height //2 + 0.95 * height // 2
-        self.create_oval(tmp5, tmp8, tmp6, tmp7, outline=outline, fill=fillcircle, width=3)
-        self.create_rectangle(tmp1, height // 4, tmp2, 3 * height // 4, outline=outline, fill=fillcircle, width=3)
+        self.light2 = self.create_oval(tmp5, tmp8, tmp6, tmp7, outline=outline, fill=fillcircle, width=3)
+        self.light3 = self.create_rectangle(tmp1, height // 4, tmp2, 3 * height // 4, outline=outline, fill=fillcircle, width=3)
         self.create_text(width//2, height//2, text=text, fill=fg, font=('Courier 24'))
+
+    def flash(self, color):
+        self.itemconfig(self.light1, fill=color)
+        self.itemconfig(self.light2, fill=color)
+        self.itemconfig(self.light3, fill=color)
 
 class Bar(tk.Canvas):
 
