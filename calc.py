@@ -17,6 +17,7 @@ MUL = 2
 SUB = 3
 ADD = 4
 NOP = 5
+DEC = 6
 
 cmdvalue = [MUL, SUB, ADD]
 cmdlist = ["x", "-", "+"]
@@ -29,7 +30,21 @@ TMPYELLOW = "#FAE662"
 
 BUTTONROW = 2
 
+def format(x):
+    s = f'{x:.10f}'
+    n = len(s)-1
+    while s[n] == '0':
+        n -= 1
+    if s[n] == '.':
+        n -= 1
+    s = s[:n+1]
+    return s
+
 class Calculator(tk.Tk):
+
+    isdecimal = False
+    decinum = 0
+
     def __init__(self):
         tk.Tk.__init__(self)
 
@@ -79,7 +94,7 @@ class Calculator(tk.Tk):
         lab = RoundLabel(buttonframe, text = ".", bg = PURPLE, fg = WHITE, outline = WHITE, fillcircle = PURPLE)
         lab.bind("<Button-1>", self.command)
         lab.bind("<ButtonRelease-1>", self.release)
-        lab.value = CLR
+        lab.value = DEC
         lab.grid(row=5, column=2, sticky = "news", padx = 0, pady = 0)
 
         lab = RoundLabel(buttonframe, text = "C", bg = PURPLE, fg = WHITE, outline = YELLOW, fillcircle = PURPLE)
@@ -117,19 +132,25 @@ class Calculator(tk.Tk):
         elif self.pending == MUL:
             self.total *= self.current
         elif self.pending == DIV:
-            self.total //= self.current
+            self.total /= self.current
         elif self.pending == NOP:
             self.total = self.current
         self.pending = cmd
 
     def reset(self):
         self.total = self.current = 0
+        self.isdecimal = False
         self.pending = NOP
 
     #digit is run when a digit button is pressed
     def digit(self, event):
-        self.current = 10*self.current + event.widget.value
-        self.display.config(text=f"{self.current:12d}")
+        if self.isdecimal:
+            self.decinum += 1
+            self.current = self.current + event.widget.value*((0.1)**self.decinum)
+            self.display.config(text=format(self.current))
+        else:
+            self.current = 10*self.current + event.widget.value
+            self.display.config(text=format(self.current))
         event.widget.flash(TMPPURPLE)
 
     def release(self, event):
@@ -140,11 +161,15 @@ class Calculator(tk.Tk):
         cmd = event.widget.value
         if cmd == CLR:
             self.reset()
-            self.display.config(text=f"{self.current:12d}")
+            self.display.config(text=format(self.current))
+        elif cmd == DEC:
+            self.isdecimal = True
         else:
             self.doOperation(cmd)
             self.current = 0
-            self.display.config(text=f"{self.total:12d}")
+            self.display.config(text=format(self.total))
+            self.isdecimal = False
+            self.decinum = 0
         event.widget.flash(TMPYELLOW)
     
     def release2(self, event):
