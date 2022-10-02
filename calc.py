@@ -60,8 +60,8 @@ class Calculator(tk.Tk):
                                       bg=PURPLE,
                                       fg=WHITE,
                                       border=2,
-                                      text="0",
-                                      anchor="s",
+                                      text=format(0),
+                                      anchor="se",
                                       font = ("Courier", 32))
         self.display.grid(row=0, column=0, columnspan=4, rowspan=1, sticky="NEWS")
 
@@ -153,6 +153,7 @@ class Calculator(tk.Tk):
             self.display.config(text=format(self.current))
         event.widget.flash(TMPPURPLE)
 
+    #The two release defs are run when a button is released to return the button color to its default state. 
     def release(self, event):
         event.widget.flash(PURPLE)
 

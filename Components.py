@@ -4,6 +4,8 @@ import tkinter as tk
 
 SIZE = 80
 
+#RoundLabel, WideLabel, and TallLabel create the buttons used on the calculator, with WideLabel making the 0 while TallLabel makes the =.
+
 class RoundLabel(tk.Canvas):
 
     def __init__(self, parent, fg='#FFFFFF', bg='#43326E', outline='#ffffff', fillcircle='#ffffff', width=SIZE, height=SIZE, text='X'):
