@@ -60,7 +60,7 @@ class Calculator(tk.Tk):
                                       bg=PURPLE,
                                       fg=WHITE,
                                       border=2,
-                                      text="",
+                                      text="0",
                                       anchor="s",
                                       font = ("Courier", 32))
         self.display.grid(row=0, column=0, columnspan=4, rowspan=1, sticky="NEWS")
