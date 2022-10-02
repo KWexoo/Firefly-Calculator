@@ -33,12 +33,15 @@ class WideLabel(tk.Canvas):
         self.light1 = self.create_oval(tmp1, tmp4, tmp2, tmp3, outline=outline, fill=fillcircle, width=3)
         self.light2 = self.create_oval(tmp5, tmp8, tmp6, tmp7, outline=outline, fill=fillcircle, width=3)
         self.light3 = self.create_rectangle(width // 4, tmp3, 3 * width // 4, tmp8, outline=outline, fill=fillcircle, width=3)
+        self.light4 = self.create_line(width // 4, tmp3+2.5, width // 4, tmp8-2.5, fill=fillcircle, width=3)
+        self.light5 = self.create_line(3 * width // 4, tmp3+2.5, 3 * width // 4, tmp8-2.5, fill=fillcircle, width=3)
         self.create_text(width//2, height//2, text=text, fill=fg, font=('Courier 24'))
 
     def flash(self, color):
         self.itemconfig(self.light1, fill=color)
         self.itemconfig(self.light2, fill=color)
         self.itemconfig(self.light3, fill=color)
+        self.itemconfig(self.light4, fill=color)
 
 class TallLabel(tk.Canvas):
 
