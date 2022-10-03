@@ -1,9 +1,5 @@
 #!/usr/bin/env python3
 
-# Todo:
-# Create decimals.
-# Create hamburger menu and figure out what to put on it.
-
 import tkinter as tk
 from decimal import *
 from Components import RoundLabel, WideLabel, TallLabel, Bar, SIZE
@@ -41,13 +37,14 @@ def format(x):
     return s
 
 class Calculator(tk.Tk):
-
     isdecimal = False
     decinum = 0
 
     def __init__(self):
         tk.Tk.__init__(self)
 
+        #Self.history is a list of previous equations done by the calculator. It does not do anything or is used for anything currently.
+        self.history = []
         self.app = tk.Frame(self)
         self.app.pack(padx=SIZE//3, pady=SIZE//3)
 
@@ -144,13 +141,14 @@ class Calculator(tk.Tk):
 
     #digit is run when a digit button is pressed
     def digit(self, event):
-        if self.isdecimal:
-            self.decinum += 1
-            self.current = self.current + event.widget.value*((0.1)**self.decinum)
-            self.display.config(text=format(self.current))
-        else:
-            self.current = 10*self.current + event.widget.value
-            self.display.config(text=format(self.current))
+        if len(format(self.current)) < 12:
+            if self.isdecimal:
+                self.decinum += 1
+                self.current = self.current + event.widget.value*((0.1)**self.decinum)
+                self.display.config(text=format(self.current))
+            else:
+                self.current = 10*self.current + event.widget.value
+                self.display.config(text=format(self.current))
         event.widget.flash(TMPPURPLE)
 
     #The two release defs are run when a button is released to return the button color to its default state. 
@@ -168,7 +166,9 @@ class Calculator(tk.Tk):
         else:
             self.doOperation(cmd)
             self.current = 0
-            self.display.config(text=format(self.total))
+            result = format(self.total)
+            self.display.config(text=result)
+            self.history.append(result)
             self.isdecimal = False
             self.decinum = 0
         event.widget.flash(TMPYELLOW)
